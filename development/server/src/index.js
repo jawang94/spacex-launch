@@ -11,13 +11,13 @@ const store = createStore();
 
 const server = new ApolloServer({
   context: async ({ req }) => {
-    // simple auth check on every request
-    const auth = req.headers && req.headers.authorization;
+    // simple auth check on every request. Default auth to empty string, so unsecure right now lmfao
+    const auth = (req.headers && req.headers.authorization) || '';
     const email = Buffer.from(auth, 'base64').toString('ascii');
     // invalid email provided, return null user
     if (!isEmail.validate(email)) return { user: null };
     // email is valid, let's find the user or return null if not found
-    const users = await store.users.findOrCreate({ where: email });
+    const users = await store.users.findOrCreate({ where: { email } });
 
     // if null resolve won't spreading null.dataValues pop error? revisit...
     const user = (users && users[0]) || null;
