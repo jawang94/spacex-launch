@@ -26,6 +26,9 @@ const server = new ApolloServer({
   },
   typeDefs,
   resolvers,
+  engine: {
+    apiKey: 'service:spacex-launch-graph:AfZkSZ4ucPkqmF3NAnu3qg',
+  },
   dataSources: () => ({
     launchAPI: new LaunchAPI(),
     userAPI: new UserAPI({ store }),

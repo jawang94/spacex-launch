@@ -1,6 +1,5 @@
 node_modules
 .DS_Store
-.env
+/development/**/.env
 /production
-/development/client
 .circleci
