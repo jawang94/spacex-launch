@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import React, { Fragment } from "react";
+import React from "react";
 
 import { useQuery } from "@apollo/react-hooks";
 import { RouteComponentProps } from "@reach/router";
@@ -50,13 +50,13 @@ const Launches: React.FC<LaunchesProps> = () => {
   return (
     <>
       <Header />
-      // First 20 launches
+      {/* First 20 launches */}
       {data.launches &&
         data.launches.launches &&
         data.launches.launches.map((launch: any) => (
           <LaunchTile key={launch.id} launch={launch} />
         ))}
-      // Load more launches
+      {/* Load more launches  */}
       {data.launches && data.launches.hasMore && (
         <Button
           onClick={() =>
@@ -68,10 +68,10 @@ const Launches: React.FC<LaunchesProps> = () => {
                   ...fetchMoreResult,
                   launches: {
                     ...fetchMoreResult.launches,
-                    launches: {
+                    launches: [
                       ...prev.launches.launches,
                       ...fetchMoreResult.launches.launches,
-                    },
+                    ],
                   },
                 };
               },

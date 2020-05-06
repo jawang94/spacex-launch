@@ -36,9 +36,9 @@ const Profile: React.FC<ProfileProps> = () => {
     <>
       <Header>My Trips</Header>
       {data.me && data.me.trips.length ? (
-        data.me.trips.map((launch: any) => {
-          <LaunchTile key={launch.id} launch={launch} />;
-        })
+        data.me.trips.map((launch: any) => (
+          <LaunchTile key={launch.id} launch={launch} />
+        ))
       ) : (
         <p>You haven't booked any trips</p>
       )}

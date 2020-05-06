@@ -4,7 +4,7 @@ import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { RouteComponentProps } from "@reach/router";
 
-import ActionButton from "../../../../production/client/src/containers/action-button";
+import ActionButton from "../containers/action-button";
 import { Header, LaunchDetail, Loading } from "../components";
 import * as LaunchDetailsTypes from "./__generated__/LaunchDetails";
 import { LAUNCH_TILE_DATA } from "./launches";
