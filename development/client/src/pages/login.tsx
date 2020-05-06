@@ -8,7 +8,7 @@ import { Loading, LoginForm } from "../components";
 import * as LoginTypes from "./__generated__/login";
 
 export const LOGIN_USER = gql`
-  mutation login($email: string}) {
+  mutation login($email: String) {
     login(email: $email)
   }
 `;

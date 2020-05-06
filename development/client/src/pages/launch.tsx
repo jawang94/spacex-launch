@@ -10,7 +10,7 @@ import * as LaunchDetailsTypes from "./__generated__/LaunchDetails";
 import { LAUNCH_TILE_DATA } from "./launches";
 
 export const GET_LAUNCH_DETAILS = gql`
-  query LaunchDetails($launchId: String) {
+  query LaunchDetails($launchId: ID!) {
     launch(id: $launchId) {
       site
       rocket {
