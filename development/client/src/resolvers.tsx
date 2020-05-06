@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import * as GetCartItemTypes from "./pages/__generated__/GetCartItems";
 import * as LaunchTileTypes from "./pages/__generated__/LaunchTile";
 import { GET_CART_ITEMS } from "./pages/cart";
+import { addOrRemoveFromCart } from "../../../production/client/src/containers/__generated__/addOrRemoveFromCart";
 
 export const typeDefs = gql`
   extend type Query {
@@ -33,6 +34,7 @@ interface ResolverMap {
 
 interface AppResolvers extends Resolvers {
   Launch: ResolverMap;
+  Mutation: ResolverMap;
 }
 
 export const resolvers: AppResolvers = {
@@ -47,6 +49,27 @@ export const resolvers: AppResolvers = {
       }
 
       return false;
+    },
+  },
+  Mutation: {
+    addOrRemoveFromCart: (_, { id }: { id: string }, { cache }): string[] => {
+      const queryResult = cache.readQuery<GetCartItemTypes.GetCartItems, any>({
+        query: GET_CART_ITEMS,
+      });
+
+      if (queryResult) {
+        const { cartItems } = queryResult;
+        const data = {
+          cartItems: cartItems.includes(id)
+            ? cartItems.filter((i) => i !== id)
+            : [...cartItems, id],
+        };
+        cache.writeQuery({ query: GET_CART_ITEMS, data });
+
+        return data.cartItems;
+      }
+
+      return [];
     },
   },
 };
